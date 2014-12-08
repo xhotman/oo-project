@@ -1,0 +1,448 @@
+GIT
+
+
+1.从源码下载到编译，再到安装   https://github.com/git/git/
+2.从git官网下载mac版本，直接安装  http://git-scm.com
+3.解压安装包，依次输入
+./config
+make
+sudo make install
+
+
+4.Xcode中默认集成git, 但可能没有安装
+
+
+5.如果已安装有旧版本git，还可以git clone https://github.com/git/git
+
+
+6.创建版本库（repository）
+
+$ mkdir learngit    #在当前用户目录下，创建一个新目录作为仓库
+$ cd learngit        #切换到仓库
+$ pwd                 #显示当前目录  /Users/mac/learngit
+$ git init              #初始化该目录，把该目录变成git可以管理的仓库 Initialized empty Git repository in /Users/mac/learngit/.git/
+
+
+
+
+7.添加文件到仓库
+
+$ touch readme.txt     #创建一个新.txt文件. 当前目录是 learngit/
+$ open readme.txt      #打开它, 编辑一点内容,保存
+
+$ git add readme.txt    #把它添加到临时存储区
+$ git commit -m “wrote a read me file”    #想着把文件提交到master, 但是弹出如下信息:
+-------------------------------------------------------------------------------
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+
+Omit --global to set the identity only in this repository.
+
+-----------------------------------------------------------------------------
+
+8.设置全局用户邮箱, 用户名. 如果不带—global参数, 则设置只对当前仓库有效.
+$ git config --global user.email “visa_bj@163.com”
+$ git config --global user.name “James”
+$ git config       #查看config命令选项
+
+
+
+
+
+9.版本穿梭
+$ git status    #查看仓库当前状态
+$ clear         #清屏
+$ git diff readme.txt   #查看difference, 即对readme.txt作了哪些修改, 然后放心提交
+$ git add readme.txt   
+$ git commit -m “edit 9th item”
+
+
+
+
+10.版本回退
+$ git log    #显示提交日志,由近及远查看提交的历史记录
+$ git log —-pretty=oneline    #一行显示日志,这样省略作者和日期两个信息
+
+$ git reset —-hard HEAD^    #回退到上一个版本
+$ cat readme.txt        #用cat命令,读取文件,写到标准输出流上
+$ man cat    #查看cat命令信息
+
+$ git reset —-hard HEAD^^    #回退到上上个版本
+$ git reset —-hard HEAD~10   #回退到上10个版本
+
+$ git reset -—hard 3628164   #回退到某个commit id 版本号(前几位即可,例如3628164)
+
+$ git reflog   #记录每一次命令  HEAD@{n}  记录每一次的操作信息
+
+
+
+
+11.工作区与暂存区
+
+工作区(Working Directory), 比如learnt目录就是一个工作区. 在工作区目录中,又有一个隐藏的.git目录.
+这是GIT的版本库(Repository). 版本库中,又有很多东西,比如暂存区(stage或index),第一个分支master, 指向第一个分支的指针HEAD.
+
+$ defaults write com.apple.finder AppleShowAllFiles -bool true   #显示所有隐藏文件
+
+git add 命令
+把需要提交的修改放到暂存区;把工作区中git未有管理的文件纳入管理范围.
+
+git commit 命令
+可一次性把暂存区的所有修改提交到分支. 之后, 暂存区清空.
+且只负责将暂存区的修改提交到分支.
+也就是说, 每次修改, 如果不add到暂存区, 那就不会commit提交到分支上.
+
+一旦提交后, 没有再对工作区作任何修改, 则工作区就是clean的.
+
+
+git checkout —-readme.txt  命令
+两种情形:
+1.readme.txt自修改后,还没有被放到暂存区,现在撤销修改, 就回到和版本库一模一样的状态.
+2.readme.txt已经添加到暂存区后, 又作了修改,现在撤销修改,则回到添加到暂存区后的状态.
+总之,就是让它回撤到最近一次git commit或git add时的状态.
+
+
+git checkout —-filename  撤销filename文件的修改
+git checkout branchname  创建一个新的分支
+
+git reset HEAD filename  把暂存区的修改撤销掉, 重新放回工作区. 在commit之前, 有效!
+
+在把暂存区的修改用上述办法撤回到工作区后,再git checkout —-filename就可以把撤回的内容丢弃, 并且用最近一次commit的内容来刷新工作区.
+
+如果已经commit到分支,但没有推送到远程库, 那可以使用版本回退的方式.
+
+
+$ git rm filename    #先删filename
+$ git commit         #再提交.这样就从版本库删除该文件.
+
+$ git checkout —-filename    #如果误删filename, 可以从版本库checkout回来一份.
+
+
+
+
+
+12.远程仓库
+
+<1>创建SSH-Key
+用户主目录下,有.ssh目录否?
+再看.ssh目录下有id_rsa和id_rsa.pub两个文件否?
+都没有.
+
+则创建:
+$ ssh-keygen -t rsa -C “visa_bj@163.com”
+
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/mac/.ssh/id_rsa): #这里按回车键
+Created directory '/Users/mac/.ssh'.  #创建.ssh目录
+
+#连续输入2次口令
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again:   
+
+#生成SSH-Key秘钥对
+Your identification has been saved in /Users/mac/.ssh/id_rsa.   #私钥
+Your public key has been saved in /Users/mac/.ssh/id_rsa.pub.   #公钥
+
+#秘钥指纹
+The key fingerprint is:
+ee:7f:b8:a1:01:a6:5f:bd:2e:69:64:64:b2:ab:40:f2 visa_bj@163.com
+
+#秘钥图
+The key's randomart image is:
++--[ RSA 2048]----+
+|                 |
+|                 |
+|                 |
+|      . o        |
+|. .   o=S        |
+| +   o.oo.       |
+|  E .  ++.o.     |
+|   . ..o+o.o.    |
+|    ....o+=o     |
++-----------------+
+
+
+
+<2>添加公钥到GitHub
+
+登陆GitHub > “Account Settings” > “SSH Keys” > “Add SSH Key” 填写任意title, 在key文本框中粘贴id_rsa.pub公钥文件的内容即可. > “Add Key”添加公钥.
+
+作用:GitHub通过SSH Key来识别你推送的提交确确实实是你推送的, 而不是别人冒充的. GitHub支持SSH协议, 它知道了你的公钥, 就能确认推送的人确实是你而非别人.
+
+推送:GitHub允许添加多个key.只要把电脑的key添加到GitHub, 即可实现在不同地方推送.
+
+
+#在GitHub上创建仓库
+登陆, 右上角”Create a new repo”按钮.
+在Repository name填入learnt, 其它保持默认, 点击”Create repository”, 即创建一个新的Git仓库.
+在本地learngit仓库下运行命令:
+$ git remote add origin git@github.com:GitHubXXXUserName/learngit.git
+# 本地仓库与GitHub上的远程仓库(origin)进行关联.
+# 相当于给远程仓库origin取了一个别名,一个url定位.
+
+$ git push -u origin master    #把本地仓库master分支, 推送到远程仓库origin上. 
+# 这样远程库和本地库各有一个master分支, 且是关联的.
+
+$ git push origin master    #只要本地修改提交到master分支, 即可推送至远程库master上.
+
+# 第一次连接GitHub会有SSH警告
+The authenticity of host 'github.com (xx.xx.xx.xx)' can't be established. RSA key fingerprint is xx.xx.xx.xx.xx.Are you sure you want to continue connecting (yes/no)?# 输入yes回车即可
+
+Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
+# 已经把GitHub的key添加到本地的信任列表里了
+
+# 输入yes前, 可验证GitHub的RSA Key的指纹信息
+(https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/)
+
+
+
+
+<3>搭建GIT服务器
+一台运行Linux的机器, 比如Ubuntu或Debian
+$ sudo apt-get install git    #安装git
+$ sudo adduser git            #创建一个git用户, 用来运行git服务
+$ sudo vim /home/git/.ssh/authorized_keys    #用vim编辑器,打开authorized_keys文件, 
+                    # 把将来会来登陆本服务器的用户电脑的公钥(id_rsa.pub)导入进来, 一行一个.
+$ sudo git init —-bare xxx.git    #创建一个xxx的裸仓库.裸仓库没有工作区.
+$ sudo chown -R git:git xxx.git   #把owner改为git, 也就是上面的git用户.
+
+# 禁止这个git用户登陆shell
+# 编辑/etc/passwd文件
+# 找到 git:x:1001:1001:,,,:/home/git:/bin/bash
+# 改为 git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+# 该git用户可正常通过ssh使用git, 但无法登陆shell
+
+$ git clone git@server:/srv/xxx.git    #克隆远程仓库
+
+
+
+<4>管理权限
+利用Gitolite(https://github.com/sitaramc/gitolite)工具, 在服务端编写脚本,来控制提交操作.
+
+
+
+
+
+
+13.分支管理
+
+
+master是主分支, HEAD时指向当前分支的指针, 分支才是指向提交的.
+Git用master指向最新一次提交, 再用HEAD指向master, 就可以确定当前分支和当前分支的提交点.
+如果新建一个分支dev, 则Git新建一个dev指针指向与master所指相同的提交.
+再把HEAD, 拿过去指向dev分支.这样表示:当前分支在dev分支上.
+
+Git创建一个分支, 就增加了一个dev指针, 改改HEAD的指向, 工作区的文件都没有动, 所以才这么快!
+
+从现在开始, 工作区的修改和提交, 都是针对dev分支.每提交一次,dev指针往前移动一步, 而master指针不变.
+
+如果dev分支上的工作完成, 把dev合并到master上.合并如此简单,就是直接把master指向dev的当前提交点即可.
+Git合并也这么快,其实就是改改指针, 工作区内容没有动.
+
+合并完成, 删除dev分支, 其实就是删除dev指针.删除后,就剩下一条master分支.
+
+
+<1>创建分支
+$ git checkout -b dev    #创建dev分支, 并切换到dev分支上.即HEAD指针此时指向dev.
+
+$ git branch dev    #新建dev分支
+$ git checkout dev  #切换到dev分支
+$ git branch        #查看当前分支. 当前分支前面有”*”号.
+
+#在dev分支上提交修改
+$ git add readme.txt
+$ git commit -m “commit on dev branch”
+
+#合并dev到master上, 先切换回master主分支
+$ git checkout master    #切换到master分支上
+$ git merge dev          #将dev分支上工作成果, 合并到当前分支上来, 即合并到master分支上来.
+$ git branch -d dev      #删除dev分支
+$ git branch             #再次查看分支情况
+
+# 使用分支去完成某个任务, 合并后再删除分支, master主分支只合并别的分支工作成果, 然后向远程仓库推送.
+
+
+
+
+<2>解决冲突
+$ git status     #查看冲突文件
+
+# Git用<<<<<<, =======, >>>>>>标记出不同分支的内容
+<<<<<<< HEADCreating a new branch is quick & simple. 
+=======Creating a new branch is quick AND simple. 
+>>>>>>> feature1
+
+# 修改文件冲突部分后
+Creating a new branch is quick and simple.
+
+# 提交到master
+$ git add readme.txt
+$ git commit -m “conflict fixed”
+
+# 查看分支合并图
+$ git log —-graph
+$ git log —-graph -—pretty=oneline —-abbrev-commit  
+
+# 合并完,删除feature1分支
+$ git branch -d feature1 
+
+
+
+<3>分支管理策略
+普通合并,Git使用Fast Forward模式, 删除分支后, 会丢掉该分支信息.
+强制禁用Fast Forward模式, 合并时会生成一个新的commit, 则该分支信息会保留在分支历史上.
+
+# 创建并切换至dev分支
+$ git checkout -b dev
+
+# 修改文件,提交
+$ git add readme.txt
+$ git commit -m “add merge”
+
+# 切换回master主分支
+$ git checkout master
+
+# 用—-no-ff参数, 禁用Fast Forward模式, 合并dev到master上. 合并后有历史分支, 能看出来曾经做过合并.
+$ git merge —-no-ff -m “merge dev with —no-ff” dev
+# 因为本次合并创建一个新commit提交, 因此-m加上描述.
+
+# 查看合并图
+$ git log —-graph —-pretty=oneline —-abbrev-commit
+
+
+master主分支, 非常稳定, 只用来分发新版本, 平时不能在上面干活.
+dev分支, 不稳定但很活跃, 到某个时候, 比如1.0版本发布时, 才把dev合并到master上, 在master上发布1.0版本.
+每个人一个自己的工作分支, 平时都在各自的分支上干活, 时不时往dev分支上合并.
+
+
+
+
+
+
+14.BUG分支
+
+发布版本中发现bug, 要求立即修复; 修改bug, 需要占用工作区, 而当前工作区中的任务还没写完, 无法提交; 
+此时怎么办?
+
+# 把当前工作区现场”保存”起来, 等以后恢复现场后, 继续工作. 修复bug任务紧急, 只能这样了.
+$ git stash  
+Saved working directory and index state WIP on dev: 6224937 add merge 
+HEAD is now at 6224937 add merge
+# 意思即:保存工作区和暂存区状态到dev分支
+
+# 查看工作区
+$ git status     #工作区干净!
+
+# 假定master上发布版本出现重大bug. 
+$ git checkout master          #切回master分支.bug出现在哪个分支, 就从哪个分支上创建临时分支 
+$ git checkout -b issue-101    #在master分支上,创建临时分支issue-101
+
+# 修复bug后,提交修改到issue-101临时分支上
+$ git add filename
+$ git commit -m “fixed bug 101”
+
+# 切换回主分支
+$ git checkout master
+
+# 将issue-101分支, 合并进主分支以真正修复此版本上的bug, 修复后为1.1版本
+$ git merge —-no-ff -m “merge bug-fix-101 into master” issue-101
+
+# 删除issue-101临时修复bug分支
+$ git branch -d issue-101
+
+
+# 准备回工作区,继续没完成的任务
+$ git checkout dev
+$ git status    
+# 发现工作区很干净. 工作现场没有了?
+
+# 查找工作现场
+$ git stash list
+stash@{0}: WIP on dev: 6224937 add merge
+# 工作现场被Git保存在某个地方了
+
+# 恢复工作现场(一)
+$ git stash apply    #恢复工作区原来内容
+$ git stash list     #stash内容没有删除,还在
+$ git stash drop     #删除stash内容
+
+$ git stash apply stash@{0}   #恢复指定的stash到工作区
+
+# 恢复工作现场(二)
+$ git stash pop     #恢复工作区
+$ git stash list    #stash没有了
+
+
+
+
+
+15.Feature分支
+
+在写dev分支时, 尝试开发一个新功能, 代号feature-vulcon
+
+# 创建并切换到一个新的分支feature-vulcon
+$ git checkout -b feature-vulcon
+
+# 开发中,不断修改,不断提交
+$ git add filename.vulcon
+$ git commit -m “finished”
+
+# 完成新功能开发, 现在切回dev, 准备将其合并到dev中来
+$ git checkout dev
+
+# 还没有合并操作, 就要求删除feature-vulcon分支
+$ git branch -d feature-vulcon
+
+error: The branch 'feature-vulcan' is not fully merged.If you are sure you want to delete it, run 'git branch -D feature-vulcan'.
+
+$ git branch -D feature-vulcon   #强行删除掉!
+
+
+
+
+
+
+16.操作远程库
+
+# 将默认远程库origin, 添加到某一个URL资源位置上, 即关联远程库
+$ git remote add origin git@github.com:xhotman/oo-project.git  
+$ git remote      #查看远程库信息
+$ git remote -v   #查看远程库详细信息. 显示抓取(fetch)和推送(push)的origin地址.
+
+origin	git@github.com:xhotman/oo-project.git (fetch)
+origin	git@github.com:xhotman/oo-project.git (push)
+
+# 推送之前,必须把远程仓库中的master分支给fetch下来
+$ git push origin master
+To git@github.com:xhotman/oo-project.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:xhotman/oo-project.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+$ git fetch origin master   #从远程库master分支抓取, 作为本地库的master
+$ git help remote           #查看操作远程库的命令说明
+
+
+# 推送本地库中分支, 至远程库的对应分支上
+$ git push origin master    #推送master分支
+$ git push origin dev       #推送dev分支
+
+# 从远程库克隆到本地
+$ git clone git@github.com:xxxx/learngit.git
+
+
+
+
+
