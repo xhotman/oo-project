@@ -1,0 +1,37 @@
+ude OS X folder attributes
+.DS_Store
+._.DS_Store
+
+.Trshes
+*.swp
+*.lock
+
+# 忽略build目录
+build/*
+
+# Exclude temp nibs and swap files
+*~.nib
+*.nib
+
+# Exclude user-specific Xcode files
+*.pbxuser
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+*.xcworkspace
+xcuserdata
+
+*.moved-aside
+profile
+DerivedData/
+.idea/
+*.hmap
+
