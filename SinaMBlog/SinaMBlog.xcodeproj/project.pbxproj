@@ -19,6 +19,7 @@
 		04503FF01A388680008D1711 /* SinaMBlogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04503FEF1A388680008D1711 /* SinaMBlogTests.m */; };
 		049104B21A3975A300C85694 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B11A3975A300C85694 /* UIView+Frame.m */; };
 		049104B51A397BF900C85694 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B41A397BF900C85694 /* UIBarButtonItem+Extension.m */; };
+		049104B81A39810500C85694 /* LZTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B71A39810500C85694 /* LZTitleButton.m */; };
 		04AF00A81A388CAB003732CB /* LZDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF00721A388CAB003732CB /* LZDiscoverViewController.m */; };
 		04AF00A91A388CAB003732CB /* LZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF00781A388CAB003732CB /* LZHomeViewController.m */; };
 		04AF00AA1A388CAB003732CB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF007E1A388CAB003732CB /* AFHTTPRequestOperation.m */; };
@@ -66,6 +67,8 @@
 		049104B11A3975A300C85694 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		049104B31A397BF900C85694 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
 		049104B41A397BF900C85694 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		049104B61A39810500C85694 /* LZTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZTitleButton.h; sourceTree = "<group>"; };
+		049104B71A39810500C85694 /* LZTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZTitleButton.m; sourceTree = "<group>"; };
 		04AF00711A388CAB003732CB /* LZDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZDiscoverViewController.h; sourceTree = "<group>"; };
 		04AF00721A388CAB003732CB /* LZDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZDiscoverViewController.m; sourceTree = "<group>"; };
 		04AF00771A388CAB003732CB /* LZHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZHomeViewController.h; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 		04AF007A1A388CAB003732CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				049104B61A39810500C85694 /* LZTitleButton.h */,
+				049104B71A39810500C85694 /* LZTitleButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 				049104B51A397BF900C85694 /* UIBarButtonItem+Extension.m in Sources */,
 				04AF00AB1A388CAB003732CB /* AFHTTPRequestOperationManager.m in Sources */,
 				049104B21A3975A300C85694 /* UIView+Frame.m in Sources */,
+				049104B81A39810500C85694 /* LZTitleButton.m in Sources */,
 				04AF00B51A388CAB003732CB /* LZMessageViewController.m in Sources */,
 				04AF00B81A388CAB003732CB /* LZProfileViewController.m in Sources */,
 				04AF00B41A388CAB003732CB /* LZTabBar.m in Sources */,
