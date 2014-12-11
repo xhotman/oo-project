@@ -171,7 +171,9 @@ The key's randomart image is:
 
 
 
-<2>添加公钥到GitHub
+<2>免费仓库GitHub
+
+(1)添加公钥到GitHub
 
 登陆GitHub > “Account Settings” > “SSH Keys” > “Add SSH Key” 填写任意title, 在key文本框中粘贴id_rsa.pub公钥文件的内容即可. > “Add Key”添加公钥.
 
@@ -180,7 +182,8 @@ The key's randomart image is:
 推送:GitHub允许添加多个key.只要把电脑的key添加到GitHub, 即可实现在不同地方推送.
 
 
-#在GitHub上创建仓库
+(2)在GitHub上创建仓库
+
 登陆, 右上角”Create a new repo”按钮.
 在Repository name填入learnt, 其它保持默认, 点击”Create repository”, 即创建一个新的Git仓库.
 在本地learngit仓库下运行命令:
@@ -201,6 +204,13 @@ Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
 
 # 输入yes前, 可验证GitHub的RSA Key的指纹信息
 (https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/)
+
+
+(3)贡献代码
+1.在GitHub上, 可任意Fork开源仓库
+2.Fork后的仓库, 自己拥有读写权限
+3.可推送pull request给官方仓库来贡献代码
+
 
 
 
@@ -469,4 +479,241 @@ $ git push origin branchName  #创建链接后,即可如此操作
 
 在本地创建一个与远程分支对应的新分支
 $ git checkout -b branchName origin/branchName    #本地分支取名, 与远程分支一样!
+
+
+从仓库中移除文件
+$ git rm --cached filename
+从仓库中移除目录
+$ git rm --cached -r dirname
+
+
+
+
+
+
+
+17.标签管理
+https://www.kernel.org/pub/software/scm/git/docs/git-tag.html
+标签是版本库的快照,实质是指向某个commit的指针.
+与分支很像, 分支可移动, 但标签固定.
+
+给分支打上标签
+$ git branch    #查看当前在哪个分支上
+$ git checkout master   #切换到master分支上
+$ git tag v1.0    #给当前分支master打上一个v1.0标签
+$ git tag    #查看所有标签
+
+忘了给之前某次提交的版本打标签,补标签办法如下:
+$ git log --pretty=oneline --abbrev-commit   #查看并找到要打标签的那次提交的id
+$ git tag v0.9 0000000   #给commit-id为000000的版本打上标签v0.9
+
+查看某个标签下的版本的信息
+$ git show v0.9
+$ git show v1.1
+
+打上带说明的标签
+$ git checkout master
+$ git tag -a v1.0 -m “version 1.0 released” 000000   #给提交号000000的版本打上详细标签
+
+打错的标签,可在本地删除
+$ git tag -d v1.0    #删除标签
+
+推送某个标签下的版本至远程
+$ git push origin v1.0   #将v1.0版本推送至远程
+
+一次推送多个本地标签
+$ git push origin --tags   
+
+要删除远程仓库上的标签,怎么办?
+$ git tag -d v1.0     #先在本地做一次”删除”修改.
+$ git push origin :refs/tags/v1.0   #将这次”删除”修改,推送至远程,即可实现远程删除.
+
+
+
+
+
+
+18. 配置git
+
+GIT用户手册
+https://www.kernel.org/pub/software/scm/git/docs/user-manual.html
+
+安装git后,配置name和email
+$ git config --global user.name “xxx”
+$ git config --global user.email “xxx@gmail.com”
+
+配置忽略文件 https://github.com/github/gitignore
+$ git add .gitignore   #提交该文件.其本身要放到版本库里.
+$ git commit
+
+配置命令输出颜色
+$ git config --global color.ui true
+
+配置命令的别名
+$ git config --global alias.st status
+$ git config --global alias.co checkout
+$ git config --global alias.ci commit
+$ git config --global alias.br branch
+
+$ git reset HEAD filename
+给暂存区的修改撤销(unstage)命令,取一个形象的别名
+$ git config --global alias.unstage ‘reset HEAD’
+这样用起来更舒服
+$ git unstage filename   #从暂存区撤销filename的修改.
+
+配置一个git last, 让它显示最后一次提交信息
+$ git config --global alias.last ‘log -1’
+实际上该命令执行的是:
+$ git log -1
+
+配置一个带多种颜色输出的lg命令
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+
+参数--global对当前用户下的所有仓库起作用. 不带此参数, 只对当前仓库起作用.
+
+
+
+==========
+config文件
+==========
+
+1.用户的git配置放在~/.gitconfig文件中
+$ cat ~/.gitconfig  #查看当前用户配置文件
+
+打印如下:
+------------------------------------------------------
+localhost:oo-project mac$ cat ~/.gitconfig
+[user]
+	email = visa_bj@163.com
+	name = James
+localhost:oo-project mac$ 
+------------------------------------------------------
+全局git配置,就在这个文件中.该文件在用户目录下,不在仓库目录!
+
+
+
+2.每个仓库的配置放在.git/config文件中:
+$ cd 当前工作目录   #切换到当前工作目录
+$ cat .git/config  #查看当前仓库配置文件
+
+打印如下:
+------------------------------------------------------
+localhost:oo-project mac$ cat .git/config
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = git@github.com:xhotman/oo-project
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+localhost:oo-project mac$ 
+--------------------------------------------------------
+
+
+
+
+
+
+
+19.仓库操作
+
+当前工作目录 > git仓库(repository)即.git目录 >
+.git/objects  存放所有对象
+.git/heads   存放每个分支的最后一次提交记录
+.git/ref/tags  所有tag标签
+.git/logs/HEAD   HEAD的历史变化
+.git/refs/heads   其它分支HEAD的历史变化(master分支除外)
+
+
+==========
+合并2个仓库
+==========
+
+1.模拟2个仓库
+在Desktop桌面创建2个工作目录, 每个里面一个git仓库
+
+localhost:Desktop mac$ mkdir repo1
+localhost:Desktop mac$ cd repo1
+localhost:repo1 mac$ echo "repo1.txt" > repo1.txt
+localhost:repo1 mac$ open repo1.txt
+localhost:repo1 mac$ git add repo1.txt
+fatal: Not a git repository (or any of the parent directories): .git
+localhost:repo1 mac$ git init
+Initialized empty Git repository in /Users/mac/Desktop/repo1/.git/
+localhost:repo1 mac$ git add repo1.txt
+localhost:repo1 mac$ git commit -m "init repo1"
+[master (root-commit) 7be2faf] init repo1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 repo1.txt
+localhost:repo1 mac$ cd ..
+localhost:Desktop mac$ mkdir repo2
+localhost:Desktop mac$ cd repo2
+localhost:repo2 mac$ echo "repo2.txt" > repo2.txt
+localhost:repo2 mac$ git init
+Initialized empty Git repository in /Users/mac/Desktop/repo2/.git/
+localhost:repo2 mac$ git add repo2.txt
+localhost:repo2 mac$ git commit -m "init repo2"
+[master (root-commit) a74a25b] init repo2
+ 1 file changed, 1 insertion(+)
+ create mode 100644 repo2.txt
+localhost:repo2 mac$ clear
+
+
+2.合并操作
+
+(1)将repo1视作一个远程仓库
+在repo2中,用other来对应这个远程仓库, 建立远程与本地链接
+localhost:repo2 mac$ git remote add other ../repo1/
+
+(2)从远程仓库中fetch
+localhost:repo2 mac$ git fetch other
+warning: no common commits
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From ../repo1
+ * [new branch]      master     -> other/master
+
+
+(3)在本地创建一个新分支repo1(故意与远程库同名), 从远程库fetch回来的数据, 就放在这个新分支上,并切换至该新分支
+localhost:repo2 mac$ git checkout -b repo1 other/master
+Branch repo1 set up to track remote branch master from other.
+Switched to a new branch 'repo1'
+分支repo1建立,对应远程other库上的master分支.即链接关系.
+切换至新分支repo1.
+
+(4)切换至repo2的master分支
+localhost:repo2 mac$ git checkout master
+Switched to branch 'master'
+
+(5)在repo2的master分支上,主动合并repo2的新分支”repo1”
+localhost:repo2 mac$ git merge repo1
+Merge made by the 'recursive' strategy.
+ repo1.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 repo1.txt
+
+仓库repo1, 被当做repo2的远程仓库other;
+从other上抓取数据, 放在repo2的新分支”repo1”上;
+回到repo2的master分支上, 主动合并新分支”repo1”. 
+合并完,即得到2个文件, 以及它们的git数据.
+即完成2个git仓库的合并.
+
+只要是合并,就有可能出现同一个文件在两个分支上都有修改的冲突.
+对文本文件,可手动解决冲突.
+对二进制文件,可用命令:
+$ git checkout --theirs BINARY_FILES     #保留合并进来的分支的修改
+$ git checkout --ours BINARY_FILES       #保留我们自己的分支的修改
+$ git add BINARY_FILE
+$ git commit -m “merge finished!”
+
+
+
 
