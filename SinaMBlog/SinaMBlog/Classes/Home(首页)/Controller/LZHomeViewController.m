@@ -58,7 +58,7 @@
 
 - (void)friendSearch
 {
-    LZLog(@"=========");
+    LZLog(@"=================");
 }
 
 
