@@ -712,7 +712,8 @@ Merge made by the 'recursive' strategy.
 $ git checkout --theirs BINARY_FILES     #保留合并进来的分支的修改
 $ git checkout --ours BINARY_FILES       #保留我们自己的分支的修改
 $ git add BINARY_FILE
-$ git commit -m “merge finished!”
+$ git commit -m “merge finished!”      #提交
+
 
 
 
