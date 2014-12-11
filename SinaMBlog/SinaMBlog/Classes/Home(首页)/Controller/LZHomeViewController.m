@@ -8,6 +8,7 @@
 
 #import "LZHomeViewController.h"
 
+
 @interface LZHomeViewController ()
 
 @end
@@ -34,26 +35,48 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
-    UIButton *leftButton = [[UIButton alloc] init];
-    [leftButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_friendsearch"] forState:UIControlStateNormal];
-    [leftButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_friendsearch_highlighted"] forState:UIControlStateHighlighted];
-    CGSize sizeL = leftButton.currentBackgroundImage.size;
-    leftButton.bounds = CGRectMake(0, 0, sizeL.width, sizeL.height);
-//    leftButton.size = leftButton.currentBackgroundImage.size;
-    [leftButton addTarget:self action:@selector(friendSearch) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+//    UIButton *leftButton = [[UIButton alloc] init];
+//    [leftButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_friendsearch"] forState:UIControlStateNormal];
+//    [leftButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_friendsearch_highlighted"] forState:UIControlStateHighlighted];
+//    CGSize sizeL = leftButton.currentBackgroundImage.size;
+//    leftButton.bounds = CGRectMake(0, 0, sizeL.width, sizeL.height);
+////    leftButton.size = leftButton.currentBackgroundImage.size;
+//    [leftButton addTarget:self action:@selector(friendSearch) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
+//    self.navigationItem.leftBarButtonItem = [self itemWithBg:@"navigationbar_friendsearch" BgSelected:@"navigationbar_friendsearch_highlighted" action:@selector(friendSearch)];
     
     
-    UIButton *rightButton = [[UIButton alloc] init];
-    [rightButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_pop"] forState:UIControlStateNormal];
-    [rightButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_pop_highlighted"] forState:UIControlStateHighlighted];
-    CGSize sizeR = rightButton.currentBackgroundImage.size;
-    rightButton.bounds = CGRectMake(0, 0, sizeR.width, sizeR.height);
-    //    leftButton.size = leftButton.currentBackgroundImage.size;
-    [rightButton addTarget:self action:@selector(pop) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+//    UIButton *rightButton = [[UIButton alloc] init];
+//    [rightButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_pop"] forState:UIControlStateNormal];
+//    [rightButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_pop_highlighted"] forState:UIControlStateHighlighted];
+//    CGSize sizeR = rightButton.currentBackgroundImage.size;
+//    rightButton.bounds = CGRectMake(0, 0, sizeR.width, sizeR.height);
+//    //    leftButton.size = leftButton.currentBackgroundImage.size;
+//    [rightButton addTarget:self action:@selector(pop) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
+//    self.navigationItem.rightBarButtonItem = [self itemWithBg:@"navigationbar_pop" BgSelected:@"navigationbar_pop_highlighted" action:@selector(pop)];
+    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithBg:@"navigationbar_friendsearch" BgSelected:@"navigationbar_friendsearch_highlighted" action:@selector(friendSearch) target:self];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithBg:@"navigationbar_pop" BgSelected:@"navigationbar_pop_highlighted" action:@selector(pop) target:self];
 }
+
+//- (UIBarButtonItem *)itemWithBg:(NSString *)bg BgSelected:(NSString *)bgSelected action:(SEL)action
+//{
+//    UIButton *aButton = [[UIButton alloc] init];
+//    [aButton setBackgroundImage:[UIImage imageNamed:bg] forState:UIControlStateNormal];
+//    [aButton setBackgroundImage:[UIImage imageNamed:bgSelected] forState:UIControlStateHighlighted];
+////    CGSize sizeL = leftButton.currentBackgroundImage.size;
+////    leftButton.bounds = CGRectMake(0, 0, sizeL.width, sizeL.height);
+//    aButton.size = aButton.currentBackgroundImage.size;
+//    [aButton addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+//    return [[UIBarButtonItem alloc] initWithCustomView:aButton];
+//}
+
+
+
+
 
 
 - (void)friendSearch

@@ -17,6 +17,8 @@
 		04503FE61A388680008D1711 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04503FCE1A388680008D1711 /* UIKit.framework */; };
 		04503FEE1A388680008D1711 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04503FEC1A388680008D1711 /* InfoPlist.strings */; };
 		04503FF01A388680008D1711 /* SinaMBlogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04503FEF1A388680008D1711 /* SinaMBlogTests.m */; };
+		049104B21A3975A300C85694 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B11A3975A300C85694 /* UIView+Frame.m */; };
+		049104B51A397BF900C85694 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B41A397BF900C85694 /* UIBarButtonItem+Extension.m */; };
 		04AF00A81A388CAB003732CB /* LZDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF00721A388CAB003732CB /* LZDiscoverViewController.m */; };
 		04AF00A91A388CAB003732CB /* LZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF00781A388CAB003732CB /* LZHomeViewController.m */; };
 		04AF00AA1A388CAB003732CB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF007E1A388CAB003732CB /* AFHTTPRequestOperation.m */; };
@@ -60,6 +62,10 @@
 		04503FEB1A388680008D1711 /* SinaMBlogTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SinaMBlogTests-Info.plist"; sourceTree = "<group>"; };
 		04503FED1A388680008D1711 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04503FEF1A388680008D1711 /* SinaMBlogTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinaMBlogTests.m; sourceTree = "<group>"; };
+		049104B01A3975A300C85694 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		049104B11A3975A300C85694 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		049104B31A397BF900C85694 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
+		049104B41A397BF900C85694 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
 		04AF00711A388CAB003732CB /* LZDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZDiscoverViewController.h; sourceTree = "<group>"; };
 		04AF00721A388CAB003732CB /* LZDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZDiscoverViewController.m; sourceTree = "<group>"; };
 		04AF00771A388CAB003732CB /* LZHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZHomeViewController.h; sourceTree = "<group>"; };
@@ -206,6 +212,10 @@
 		04AF006E1A388CAB003732CB /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				049104B01A3975A300C85694 /* UIView+Frame.h */,
+				049104B11A3975A300C85694 /* UIView+Frame.m */,
+				049104B31A397BF900C85694 /* UIBarButtonItem+Extension.h */,
+				049104B41A397BF900C85694 /* UIBarButtonItem+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -528,7 +538,9 @@
 				04AF00B11A388CAB003732CB /* AFURLResponseSerialization.m in Sources */,
 				04AF00A81A388CAB003732CB /* LZDiscoverViewController.m in Sources */,
 				04AF00AC1A388CAB003732CB /* AFHTTPSessionManager.m in Sources */,
+				049104B51A397BF900C85694 /* UIBarButtonItem+Extension.m in Sources */,
 				04AF00AB1A388CAB003732CB /* AFHTTPRequestOperationManager.m in Sources */,
+				049104B21A3975A300C85694 /* UIView+Frame.m in Sources */,
 				04AF00B51A388CAB003732CB /* LZMessageViewController.m in Sources */,
 				04AF00B81A388CAB003732CB /* LZProfileViewController.m in Sources */,
 				04AF00B41A388CAB003732CB /* LZTabBar.m in Sources */,

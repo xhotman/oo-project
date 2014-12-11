@@ -8,6 +8,7 @@
 
 #import "LZTabBar.h"
 
+
 @interface LZTabBar()
 @property (weak, nonatomic) UIButton *plusButton;
 
@@ -77,9 +78,11 @@
     }
     
     //根据按钮当前图片大小, 来设置+号按钮的大小和中心点.
-    CGSize plusButtonSize = self.plusButton.currentBackgroundImage.size;
-    self.plusButton.bounds = CGRectMake(0, 0, plusButtonSize.width, plusButtonSize.height);
-    self.plusButton.center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
+//    CGSize plusButtonSize = self.plusButton.currentBackgroundImage.size;
+//    self.plusButton.bounds = CGRectMake(0, 0, plusButtonSize.width, plusButtonSize.height);
+//    self.plusButton.center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
+    self.plusButton.size = self.plusButton.currentBackgroundImage.size;
+    self.plusButton.center = CGPointMake(self.width * 0.5, self.height * 0.5);
 }
 
 
