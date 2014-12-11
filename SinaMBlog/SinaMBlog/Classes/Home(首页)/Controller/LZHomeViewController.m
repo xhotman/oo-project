@@ -12,6 +12,9 @@
 
 @interface LZHomeViewController ()
 
+@property (weak, nonatomic) UIButton *cover;
+@property (weak, nonatomic) UIImageView *container;
+
 @end
 
 @implementation LZHomeViewController
@@ -42,18 +45,85 @@
     
     //导航栏中间标题
     LZTitleButton *titleButton = [[LZTitleButton alloc] init];
-//    titleButton.backgroundColor = [UIColor orangeColor];
     [titleButton setTitle:@"首页" forState:UIControlStateNormal];
     [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-//    titleButton.width = 100;
-//    titleButton.height = 30;
-    [titleButton sizeToFit];  //自适应内容大小
+    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
+    [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = titleButton;
+}
+
+- (void)titleClick:(LZTitleButton *)titleButton
+{
+    UITableView *tableView = [[UITableView alloc] init];
+    tableView.size = CGSizeMake(150, 200);
+    [self popFrom:titleButton content:tableView];
+    
+//    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateNormal];
+    titleButton.selected = !titleButton.isSelected;
+    LZLog(@"中间按钮!");
+}
+
+
+- (void)popFrom:(UIView *)from content:(UIView *)contentView
+{
+    UIWindow *window = self.view.window;
+//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//    UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
+    
+    //蒙版
+    UIButton *cover = [[UIButton alloc] init];
+    cover.backgroundColor = [UIColor blackColor];
+    cover.alpha = 0.5;
+    cover.frame = [UIScreen mainScreen].bounds;
+    [cover addTarget:self action:@selector(coverClick) forControlEvents:UIControlEventTouchUpInside];
+    self.cover = cover;
+    [window addSubview:cover];
+    
+    //弹出框-容器
+    UIImageView *container = [[UIImageView alloc] init];
+    container.userInteractionEnabled = YES; //默认是关闭交互的.
+    container.image = [UIImage imageNamed:@"popover_background"];
+//    container.width = 100;
+//    container.height = 100;
+//    container.centerX = from.width * 0.5;
+//    container.y = 50;
+    LZLog(@"%f", from.centerX);
+    container.centerX = from.centerX - 100;
+    container.y = CGRectGetMaxY(from.frame);
+    LZLog(@"前:%@",NSStringFromCGRect(container.frame));
+//    container.frame = [window convertRect:container.frame fromView:from.superview];
+    container.center = [window convertPoint:container.center fromView:from.superview];
+    LZLog(@"后:%@",NSStringFromCGRect(container.frame));
+    self.container = container;
+    [window addSubview:container];
+    
+    //弹出框-内容
+    contentView.x = 10;
+    contentView.y = 15;
+    [container addSubview:contentView];
+    
+    //容器尺寸, 依内容大小而定
+    container.width = CGRectGetMaxX(contentView.frame) + contentView.x;  //子控件以父控件为坐标参照
+    container.height = CGRectGetMaxY(contentView.frame) + contentView.y;
 }
 
 
 
 
+
+
+
+
+
+
+- (void)coverClick
+{
+    [self.cover removeFromSuperview];
+    [self.container removeFromSuperview];
+    LZTitleButton *titleButton = (LZTitleButton *)self.navigationItem.titleView;
+//    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+    titleButton.selected = !titleButton.isSelected;
+}
 
 
 

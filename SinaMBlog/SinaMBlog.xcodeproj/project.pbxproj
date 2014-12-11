@@ -17,6 +17,7 @@
 		04503FE61A388680008D1711 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04503FCE1A388680008D1711 /* UIKit.framework */; };
 		04503FEE1A388680008D1711 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04503FEC1A388680008D1711 /* InfoPlist.strings */; };
 		04503FF01A388680008D1711 /* SinaMBlogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04503FEF1A388680008D1711 /* SinaMBlogTests.m */; };
+		04546A2D1A39A2D80078AD62 /* LZPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 04546A2C1A39A2D80078AD62 /* LZPopMenu.m */; };
 		049104B21A3975A300C85694 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B11A3975A300C85694 /* UIView+Frame.m */; };
 		049104B51A397BF900C85694 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B41A397BF900C85694 /* UIBarButtonItem+Extension.m */; };
 		049104B81A39810500C85694 /* LZTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 049104B71A39810500C85694 /* LZTitleButton.m */; };
@@ -63,6 +64,8 @@
 		04503FEB1A388680008D1711 /* SinaMBlogTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SinaMBlogTests-Info.plist"; sourceTree = "<group>"; };
 		04503FED1A388680008D1711 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04503FEF1A388680008D1711 /* SinaMBlogTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinaMBlogTests.m; sourceTree = "<group>"; };
+		04546A2B1A39A2D80078AD62 /* LZPopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZPopMenu.h; sourceTree = "<group>"; };
+		04546A2C1A39A2D80078AD62 /* LZPopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZPopMenu.m; sourceTree = "<group>"; };
 		049104B01A3975A300C85694 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		049104B11A3975A300C85694 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		049104B31A397BF900C85694 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
@@ -197,6 +200,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		04546A2A1A39A2A40078AD62 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				04546A2B1A39A2D80078AD62 /* LZPopMenu.h */,
+				04546A2C1A39A2D80078AD62 /* LZPopMenu.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		04AF006D1A388CAB003732CB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +219,7 @@
 				04AF00A21A388CAB003732CB /* Profile(我的) */,
 				04AF006E1A388CAB003732CB /* Category */,
 				04AF007B1A388CAB003732CB /* Libs */,
+				04546A2A1A39A2A40078AD62 /* Tools */,
 				04AF009E1A388CAB003732CB /* Other */,
 			);
 			path = Classes;
@@ -534,6 +547,7 @@
 			files = (
 				04AF00B01A388CAB003732CB /* AFURLRequestSerialization.m in Sources */,
 				04AF00AF1A388CAB003732CB /* AFURLConnectionOperation.m in Sources */,
+				04546A2D1A39A2D80078AD62 /* LZPopMenu.m in Sources */,
 				04AF00AE1A388CAB003732CB /* AFSecurityPolicy.m in Sources */,
 				04AF00B61A388CAB003732CB /* LZAppDelegate.m in Sources */,
 				04AF00B31A388CAB003732CB /* LZRootController.m in Sources */,
