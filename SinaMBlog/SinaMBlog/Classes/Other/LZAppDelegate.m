@@ -8,6 +8,7 @@
 
 #import "LZAppDelegate.h"
 #import "LZRootController.h"
+#import "LZOauthViewController.h"
 
 @implementation LZAppDelegate
 
@@ -17,7 +18,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    self.window.rootViewController = [[LZRootController alloc] init];
+//    self.window.rootViewController = [[LZRootController alloc] init];
+    self.window.rootViewController = [[LZOauthViewController alloc] init];
     
     [self.window makeKeyAndVisible];
     return YES;

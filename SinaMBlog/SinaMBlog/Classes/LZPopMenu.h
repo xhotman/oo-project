@@ -11,11 +11,12 @@
 
 @interface LZPopMenu : NSObject
 
-//+ (void)popFrom:(UIView *)from content:(UIView *)contentView ;
-//+ (void)popFrom:(UIView *)from content:(UIView *)contentView dismiss:(void(^)())dismiss;
-//+ (void)popFromRect:(CGRect)rect inView:(UIView *)view content:(UIView *)content dismiss:(void(^)())dismiss;
-
+//传视图
 + (void)popFrom:(UIView *)from content:(UIView *)content dismiss:(void (^)())dismiss;
 + (void)popFrom:(UIView *)from rect:(CGRect)rect content:(UIView *)content dismiss:(void(^)())dismiss;
+
+//传控制器
++ (void)popFrom:(UIView *)from contentVC:(UIViewController *)tableVC dismiss:(void (^)())dismiss;
++ (void)popFrom:(UIView *)from rect:(CGRect)rect contentVC:(UIViewController *)tableVC dismiss:(void(^)())dismiss;
 
 @end

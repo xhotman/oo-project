@@ -1,25 +1,22 @@
 //
-//  LZHomeViewController.m
-//  SinaWeibo
+//  LZTitleMenuViewController.m
+//  SinaMBlog
 //
-//  Created by mac on 14-12-9.
+//  Created by mac on 14-12-11.
 //  Copyright (c) 2014年 mac. All rights reserved.
 //
 
-#import "LZHomeViewController.h"
-#import "LZTitleButton.h"
-#import "LZPopMenu.h"
 #import "LZTitleMenuViewController.h"
 
+@interface LZTitleMenuViewController ()
 
-@interface LZHomeViewController ()
-
-//@property (weak, nonatomic) UIButton *cover;
-//@property (weak, nonatomic) UIImageView *container;
+@property (strong, nonatomic) NSArray *dataContainer;
 
 @end
 
-@implementation LZHomeViewController
+@implementation LZTitleMenuViewController
+
+static NSString *ID = @"myCell";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,50 +37,12 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.dataContainer = @[@"aaaa", @"bbbb", @"cccc"];
+
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ID];
     
-    //导航栏左右按钮
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithBg:@"navigationbar_friendsearch" BgSelected:@"navigationbar_friendsearch_highlighted" action:@selector(friendSearch) target:self];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithBg:@"navigationbar_pop" BgSelected:@"navigationbar_pop_highlighted" action:@selector(pop) target:self];
     
-    //导航栏中间标题
-    LZTitleButton *titleButton = [[LZTitleButton alloc] init];
-    [titleButton setTitle:@"首页" forState:UIControlStateNormal];
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
-    [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = titleButton;
 }
-
-- (void)titleClick:(LZTitleButton *)titleButton
-{
-    LZTitleMenuViewController *titleMenuVC = [[LZTitleMenuViewController alloc] init];
-    titleMenuVC.view.autoresizingMask = UIViewAutoresizingNone; //禁止控制器view自动拉伸!否则设置view大小失效!
-    titleMenuVC.view.size = CGSizeMake(150, 200);
-
-    [LZPopMenu popFrom:titleButton contentVC:titleMenuVC dismiss:^(NSString *s){
-    titleButton.selected = !titleButton.isSelected;
-        LZLog(@"%@",s);
-    }];
-    
-    titleButton.selected = !titleButton.isSelected;
-    LZLog(@"中间按钮!");
-}
-
-
-
-- (void)friendSearch
-{
-    LZLog(@"=================");
-}
-
-
-- (void)pop
-{
-    LZLog(@"<<<<<<<<");
-}
-
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -97,26 +56,30 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.dataContainer.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+//    }
+    
+    cell.textLabel.text = self.dataContainer[indexPath.row];
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
