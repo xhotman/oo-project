@@ -31,54 +31,12 @@
     
     LZDiscoverViewController *discover = [[LZDiscoverViewController alloc] init];
     discover.view.backgroundColor = [UIColor grayColor];
+    
     [self addVCWithObjc:discover title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover_selected"];
-    
-//     [self addVCWithClass:[LZMessageViewController class] title:@"xxx" image:nil selectedImage:nil];
-    
     [self addVCWithClass:[LZMessageViewController class] title:@"消息" image:@"tabbar_message_center" selectedImage:@"tabbar_message_center_selected"];
-    
     [self addVCWithClass:[LZProfileViewController class] title:@"我的" image:@"tabbar_profile" selectedImage:@"tabbar_profile_selected"];
-    
-    
-//    UIViewController *vcOne = [[UIViewController alloc] init];
-//    vcOne.view.backgroundColor = [UIColor orangeColor];
-//    vcOne.tabBarItem.title = @"首页";
-//    [vcOne.tabBarItem setTitleTextAttributes:@{
-//                                               NSForegroundColorAttributeName:[UIColor orangeColor],
-//                                               NSFontAttributeName:[UIFont systemFontOfSize:16]
-//                                               } forState:UIControlStateNormal];
-//    vcOne.tabBarItem.image = [UIImage imageNamed:@"tabbar_home"];
-//    UIImage *imageOneSelected = [UIImage imageNamed:@"tabbar_home_selected"];
-//    vcOne.tabBarItem.selectedImage = [imageOneSelected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    [self addChildViewController:vcOne];
-    
-//    UIViewController *vcTwo = [[UIViewController alloc] init];
-//    vcTwo.view.backgroundColor = [UIColor yellowColor];
-//    vcTwo.tabBarItem.title = @"发现";
-//    vcTwo.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
-//    vcTwo.tabBarItem.selectedImage = [UIImage imageNamed:@"tabbar_discover_selected"];
-//    [self addChildViewController:vcTwo];
-//    
-//    UIViewController *vcThree = [[UIViewController alloc] init];
-//    vcThree.view.backgroundColor = [UIColor greenColor];
-//    vcThree.tabBarItem.title = @"消息";
-//    vcThree.tabBarItem.image = [UIImage imageNamed:@"tabbar_message_center"];
-//    vcThree.tabBarItem.selectedImage = [UIImage imageNamed:@"tabbar_message_center_selected"];
-//    [self addChildViewController:vcThree];
-//    
-//    UIViewController *vcFour = [[UIViewController alloc] init];
-//    vcFour.view.backgroundColor = [UIColor blueColor];
-//    vcFour.tabBarItem.title = @"我的";
-//    vcFour.tabBarItem.image = [UIImage imageNamed:@"tabbar_profile"];
-//    vcFour.tabBarItem.selectedImage = [UIImage imageNamed:@"tabbar_profile_selected"];
-//    [self addChildViewController:vcFour];
-    
-    
-//    LZLog(@"%@", self.tabBar);
-    
+
     [self setValue:[[LZTabBar alloc] init] forKeyPath:@"tabBar"];
-    
-//    LZLog(@"%@", self.tabBar);
 }
 
 

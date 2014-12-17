@@ -9,30 +9,23 @@
 #import "LZAppDelegate.h"
 #import "LZRootController.h"
 #import "LZOauthViewController.h"
+#import "LZAccountTool.h"
 
 @implementation LZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    //plist写入路径, 根据系统版本不同, 可灵活调整
-//    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
-//    NSDictionary *account = [NSDictionary dictionaryWithContentsOfFile:filePath];
-//    LZLog(@"AppDelegate - %@", account);
-    
-    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.data", NSHomeDirectory()];
-    id account = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+
     //跳转根控制器,分两种情况:
-    if (account) {
+    if ([LZAccountTool account]) {
         self.window.rootViewController = [[LZRootController alloc] init];
     }else{
         self.window.rootViewController = [[LZOauthViewController alloc] init];
     }
     
-//    self.window.rootViewController = [[LZRootController alloc] init];
+//    self.window.rootViewController = [[LZRootController alloc] init];   //不带数据,直接跳到内部其它控制器,方便测试内部模块!
     [self.window makeKeyAndVisible];
     return YES;
 }

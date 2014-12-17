@@ -9,6 +9,7 @@
 #import "LZOauthViewController.h"
 #import "LZRootController.h"
 #import "LZAccount.h"
+#import "LZAccountTool.h"
 
 @interface LZOauthViewController () <UIWebViewDelegate>
 
@@ -47,15 +48,13 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlStr = request.URL.absoluteString;
-//    LZLog(@"%@",urlStr);
     NSRange range = [urlStr rangeOfString:@"code="];
     if (range.length) {
         NSString *code = [urlStr substringFromIndex:(range.location + range.length)];
-        LZLog(@"%@",code);
+        LZLog(@"code = %@",code);
         [self accessTokenWithCode:code];
         return NO;
     }
-//    return NO;
     return YES;
 }
 
@@ -70,7 +69,6 @@
     [postString appendString:[NSString stringWithFormat:@"&code=%@",code]];
     [postString appendString:@"&redirect_uri=http://www.baidu.com"];
     //查看http请求字串
-//    LZLog(@"%@",postString);
     
     //转为URL
     NSURL *url = [NSURL URLWithString:postString];
@@ -83,7 +81,6 @@
     
     //问题就在这里!
     //新浪要求用户发post请求,那么重要参数居然放到http地址中,请求体是空的!发post请求,有毛意义!
-    //
     
     [NSURLConnection sendAsynchronousRequest:mRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
@@ -104,20 +101,15 @@
         
         //二进制数据,JSON格式对象, 转为一个字典
         NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
-//        [responseObject writeToFile:filePath atomically:YES];
-        
+        LZLog(@"access_token = %@", responseObject[@"access_token"]);
+        //字典再转模型
         LZAccount *account = [LZAccount accountWithDic:responseObject];
-        NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.data", NSHomeDirectory()];
-        BOOL isSaved = [NSKeyedArchiver archiveRootObject:account toFile:filePath];
-        LZLog(@"%@", isSaved?@"保存成功!":@"保存失败!");
-        
+        //模型归档, 到沙盒中, 为account.data文件
+        [LZAccountTool save:account];
+        //切换根控制器
         [UIApplication sharedApplication].keyWindow.rootViewController = [[LZRootController alloc] init];
     }];
-
 }
-
-
 
 @end
 
