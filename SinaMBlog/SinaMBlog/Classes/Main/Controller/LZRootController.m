@@ -74,11 +74,11 @@
 //    [self addChildViewController:vcFour];
     
     
-    LZLog(@"%@", self.tabBar);
+//    LZLog(@"%@", self.tabBar);
     
     [self setValue:[[LZTabBar alloc] init] forKeyPath:@"tabBar"];
     
-    LZLog(@"%@", self.tabBar);
+//    LZLog(@"%@", self.tabBar);
 }
 
 

@@ -62,11 +62,11 @@
 
     [LZPopMenu popFrom:titleButton contentVC:titleMenuVC dismiss:^(NSString *s){
     titleButton.selected = !titleButton.isSelected;
-        LZLog(@"%@",s);
+//        LZLog(@"%@",s);
     }];
     
     titleButton.selected = !titleButton.isSelected;
-    LZLog(@"中间按钮!");
+//    LZLog(@"中间按钮!");
 }
 
 

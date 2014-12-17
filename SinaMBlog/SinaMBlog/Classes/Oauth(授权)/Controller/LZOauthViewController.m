@@ -7,8 +7,8 @@
 //
 
 #import "LZOauthViewController.h"
-#import "AFNetworking.h"
 #import "LZRootController.h"
+#import "LZAccount.h"
 
 @interface LZOauthViewController () <UIWebViewDelegate>
 
@@ -47,7 +47,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlStr = request.URL.absoluteString;
-    LZLog(@"%@",urlStr);
+//    LZLog(@"%@",urlStr);
     NSRange range = [urlStr rangeOfString:@"code="];
     if (range.length) {
         NSString *code = [urlStr substringFromIndex:(range.location + range.length)];
@@ -70,7 +70,7 @@
     [postString appendString:[NSString stringWithFormat:@"&code=%@",code]];
     [postString appendString:@"&redirect_uri=http://www.baidu.com"];
     //查看http请求字串
-    LZLog(@"%@",postString);
+//    LZLog(@"%@",postString);
     
     //转为URL
     NSURL *url = [NSURL URLWithString:postString];
@@ -87,53 +87,36 @@
     
     [NSURLConnection sendAsynchronousRequest:mRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
-        NSLog(@"服务器响应 - %@",response);
+        LZLog(@"服务器响应对象类型 - %@",NSStringFromClass([response class]));
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSInteger status_code = [httpResponse statusCode];
+        NSDictionary *headerFields = [httpResponse allHeaderFields];
+        switch (status_code) {
+            case 200:
+                LZLog(@"请求成功 - %@", headerFields);
+                break;
+    
+            default:
+                LZLog(@"请求失败 - %@", headerFields);
+                break;
+        }
+        
         
         //二进制数据,JSON格式对象, 转为一个字典
         NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"返回数据 - %@ ",responseObject);
-        NSLog(@"访问令牌 - %@ ",responseObject[@"access_token"]);
+//        NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
+//        [responseObject writeToFile:filePath atomically:YES];
         
-        //字典写入plist文件
+        LZAccount *account = [LZAccount accountWithDic:responseObject];
+        NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.data", NSHomeDirectory()];
+        BOOL isSaved = [NSKeyedArchiver archiveRootObject:account toFile:filePath];
+        LZLog(@"%@", isSaved?@"保存成功!":@"保存失败!");
         
-//        NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) lastObject];
-//        NSString *filePath = [docPath stringByAppendingPathComponent:@"account.plist"];
-        
-        NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
-        [responseObject writeToFile:filePath atomically:YES];
-        
-        //测试了一下, 成功跳转到主页控制器界面!
         [UIApplication sharedApplication].keyWindow.rootViewController = [[LZRootController alloc] init];
     }];
-//    return; 
+
 }
 
-
-
-- (void)accessTokenWithCode2:(NSString *)code
-{
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", nil];
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"client_id"] = @"1169246534";
-    params[@"client_secret"] = @"1776da5cce7bab99c96ab6f47322605b";
-    params[@"grant_type"] = @"authorization_code";
-    params[@"code"] = code;
-    params[@"redirect_uri"] = @"http://wwww.baidu.com";
-    
-    LZLog(@"%@",params);
-    
-    //AFN框架,把params最终作为[NSJSONSerialization dataWithJSONObject:params ...]参数传入,返回的data用来设置setHTTPBody.
-    //很明显, 不是新浪傻瓜服务器期待的! 它要求用POST方式, 但HTTPBody为空,所有参数放到http地址中传送! 这跟GET有何区别?
-    //也许是开发者测试账号, 所有没有保密的必要.且用GET方式,服务器解析不费劲, 反正是免费给开发者使用的, 何必要费劲去保密呢.
-    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        LZLog(@"请求成功 - %@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        LZLog(@"请求失败 - %@", error);
-    }];
-    
-}
 
 
 @end

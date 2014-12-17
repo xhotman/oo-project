@@ -18,14 +18,14 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    //plist写入路径, 根据系统版本不同, 可灵活调整
+//    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
+//    NSDictionary *account = [NSDictionary dictionaryWithContentsOfFile:filePath];
+//    LZLog(@"AppDelegate - %@", account);
+    
+    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.data", NSHomeDirectory()];
+    id account = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     //跳转根控制器,分两种情况:
-//    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) lastObject];
-//    NSString *filePath = [docPath stringByAppendingPathComponent:@"account.plist"];
-    
-    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
-    NSDictionary *account = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    LZLog(@"AppDelegate - %@", account);
-    
     if (account) {
         self.window.rootViewController = [[LZRootController alloc] init];
     }else{

@@ -18,6 +18,7 @@
 		040FEFF31A3F2F460079BAF8 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEFE91A3F2F460079BAF8 /* AFURLResponseSerialization.m */; };
 		040FEFF41A3F2F460079BAF8 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEFEB1A3F2F460079BAF8 /* AFURLSessionManager.m */; };
 		040FEFF61A3F340E0079BAF8 /* LZOauthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEFF51A3F340E0079BAF8 /* LZOauthViewController.xib */; };
+		0431DEF31A4181490097320C /* LZAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431DEF21A4181490097320C /* LZAccount.m */; };
 		04503FCB1A388680008D1711 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04503FCA1A388680008D1711 /* Foundation.framework */; };
 		04503FCD1A388680008D1711 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04503FCC1A388680008D1711 /* CoreGraphics.framework */; };
 		04503FCF1A388680008D1711 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04503FCE1A388680008D1711 /* UIKit.framework */; };
@@ -76,6 +77,8 @@
 		040FEFEA1A3F2F460079BAF8 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		040FEFEB1A3F2F460079BAF8 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		040FEFF51A3F340E0079BAF8 /* LZOauthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LZOauthViewController.xib; sourceTree = "<group>"; };
+		0431DEF11A4181490097320C /* LZAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZAccount.h; sourceTree = "<group>"; };
+		0431DEF21A4181490097320C /* LZAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZAccount.m; sourceTree = "<group>"; };
 		04503FC71A388680008D1711 /* SinaMBlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinaMBlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04503FCA1A388680008D1711 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04503FCC1A388680008D1711 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -163,6 +166,8 @@
 		040FEFD11A3F11CE0079BAF8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0431DEF11A4181490097320C /* LZAccount.h */,
+				0431DEF21A4181490097320C /* LZAccount.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -608,6 +613,7 @@
 				040FEFEF1A3F2F460079BAF8 /* AFNetworkReachabilityManager.m in Sources */,
 				049104B81A39810500C85694 /* LZTitleButton.m in Sources */,
 				04AF00B51A388CAB003732CB /* LZMessageViewController.m in Sources */,
+				0431DEF31A4181490097320C /* LZAccount.m in Sources */,
 				04AF00B81A388CAB003732CB /* LZProfileViewController.m in Sources */,
 				040FEFEC1A3F2F460079BAF8 /* AFHTTPRequestOperation.m in Sources */,
 				04AF00B41A388CAB003732CB /* LZTabBar.m in Sources */,
