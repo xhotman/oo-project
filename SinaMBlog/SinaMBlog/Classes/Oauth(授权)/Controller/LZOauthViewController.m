@@ -72,10 +72,6 @@
     //查看http请求字串
     LZLog(@"%@",postString);
     
-    //    NSData *qData = [postString dataUsingEncoding:NSUTF8StringEncoding];
-    //    NSString *length = [NSString stringWithFormat:@"%d", [qData length]];
-    
-    
     //转为URL
     NSURL *url = [NSURL URLWithString:postString];
     //创建可变请求对象
@@ -84,26 +80,32 @@
     [mRequest setHTTPMethod:@"POST"];
     //请求头
     [mRequest setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
-    //    [mRequest setValue:length forHTTPHeaderField:@"Content-Length"];
-    //请求体
-    //    [mRequest setHTTPBody:qData];
     
     //问题就在这里!
-    //新浪个傻逼,要求用户发post请求,那么重要参数居然放到http地址中,请求体是空的!发post请求,有毛意义!
+    //新浪要求用户发post请求,那么重要参数居然放到http地址中,请求体是空的!发post请求,有毛意义!
     //
     
     [NSURLConnection sendAsynchronousRequest:mRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
         NSLog(@"服务器响应 - %@",response);
         
-        NSArray *a = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"返回数据 - %@",a);
+        //二进制数据,JSON格式对象, 转为一个字典
+        NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"返回数据 - %@ ",responseObject);
+        NSLog(@"访问令牌 - %@ ",responseObject[@"access_token"]);
+        
+        //字典写入plist文件
+        
+//        NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) lastObject];
+//        NSString *filePath = [docPath stringByAppendingPathComponent:@"account.plist"];
+        
+        NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
+        [responseObject writeToFile:filePath atomically:YES];
         
         //测试了一下, 成功跳转到主页控制器界面!
         [UIApplication sharedApplication].keyWindow.rootViewController = [[LZRootController alloc] init];
     }];
-    
-    return;
+//    return; 
 }
 
 

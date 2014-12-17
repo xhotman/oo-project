@@ -18,9 +18,21 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-//    self.window.rootViewController = [[LZRootController alloc] init];
-    self.window.rootViewController = [[LZOauthViewController alloc] init];
+    //跳转根控制器,分两种情况:
+//    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) lastObject];
+//    NSString *filePath = [docPath stringByAppendingPathComponent:@"account.plist"];
     
+    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/account.plist", NSHomeDirectory()];
+    NSDictionary *account = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    LZLog(@"AppDelegate - %@", account);
+    
+    if (account) {
+        self.window.rootViewController = [[LZRootController alloc] init];
+    }else{
+        self.window.rootViewController = [[LZOauthViewController alloc] init];
+    }
+    
+//    self.window.rootViewController = [[LZRootController alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
 }
